@@ -1,29 +1,63 @@
 # Gestión de tareas
 El aplicativo cumple con la administración y gestión de tareas en donde el usuario pueda crear, eliminar, actualizar, exportar e importar tareas.
 
-## Librerías
-El proyecto esta desarrollado usando `StreamLit`, usa como Base de Datos a `SQLalchemy`.
 
-Para ejecutar el aplicativo se puede de manera local usando el comando streamliy run ./src/main.py o ejecutarlo en la nube por medio de GitHub.
+## Instalación 
 
-**Se proyectan algunas muestras del aplicativo:**
+Clona este repositorio con:
+```
+git clone https://github.com/MontoyaN1/gestion_tareas.git
+```
 
-![alt text](img/image.png)
+Ve a la carpeta:
+```
+cd gestion_tareas
+```
 
-![alt text](img/image-1.png)
+Crea un entorno virtual y entra en el:
+```
+python -m venv ./
+source ./bin/activate
+```
 
-![alt text](img/image-2.png)
+Descarga las dependencias necesarias:
+```
+pip install -r requirements.txt
+```
 
-![alt text](img/image-3.png)
+Y para ejecutarlo en el navegador:
+```
+streamlit run ./src/main.py
+```
 
-![alt text](img/image-4.png)
+## Uso
+
+El aplicativo viene con unas tareas predeterminadas, en donde se puede:
+
+1. **Ver las tareas actuales**: En una tabla se encuentran las tareas con su estado (pendiente o completada) y las opciones de eliminar o editar.
+2.  **Marcar tareas**: Hay una casilla que permite marcar una tarea como completada.
+3.  **Eliminar una tarea**: Se puede eliminar tareas.
+4.  **Exportar todas las tareas**: Permite al usuario exportar las tareas en un JSON.
+5.  **Importar tareas**: Se puede importar desde un JSON en donde se añaden las nuevas tareas que no esten en la lista de tareas.
 
 
-## Aclaraciones:
+## Aclaraciones
 
 Dentro de la carpeta img se encuentran las imágenes necesarias para cargar el README.md y una captura del resultado de usar `SonnaScanner` en el proyecto.
 
 El proyecto original fue desarrollado en un entorno virtual en donde se instaló las dependencias necesarias, razón por la que existe un archivo “”requirements.txt“” en donde se encuentran las dependencias usadas para el proyecto.
+
+
+## Aplicativo
+
+Algunas imágenes de la aplicación en funcionamiento:
+
+![alt text](./img/image.png)
+
+![alt text](./img/image-1.png)
+
+![alt text](./img/image-2.png)
+
 
 
 ### Desarrollo
