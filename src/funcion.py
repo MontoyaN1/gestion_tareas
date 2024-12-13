@@ -54,4 +54,3 @@ def form_actualizar(id: int, title: str, descrip: str, estado: bool):
             st.success("Tarea actualizada correctamente")
             time.sleep(1.2)
             st.rerun()
-            return

@@ -57,28 +57,6 @@ def listar_tareas():
         session.close()
 
 
-""" def actualizar_tarea(
-    id: int, title: String, descrip: String, state: Boolean
-) -> Boolean:
-    
-    try:
-        tarea = session.query(Tarea).filter(Tarea.id == id).first()
-
-        if tarea:
-            tarea.titulo = title
-            tarea.descripcion = descrip
-            tarea.estado = state
-
-            session.commit()
-            return True
-        else:
-            return False
-    except Exception as e:
-        raise e 
-    finally:
-        session.close() """
-
-
 def actualizar_tarea(id: int, title: str, descrip: str, state: bool) -> bool:
     if not title.strip():
         raise ValueError("El título no puede estar vacío.")
