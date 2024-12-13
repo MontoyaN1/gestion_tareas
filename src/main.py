@@ -1,5 +1,5 @@
 import streamlit as st
-from funcion import create_json, subir_json
+from funcion import create_json, subir_json, form_actualizar
 from database import (
     Base,
     engine,
@@ -28,17 +28,20 @@ def main():
             del st.session_state.success_message
 
         if tareas:
-            encabezados = st.columns([3, 2, 1])
+            encabezados = st.columns([3, 1.5, 1.2, 1.3])
             with encabezados[0]:
                 st.subheader("Título y descripción")
             with encabezados[1]:
                 st.subheader("Estado")
 
             with encabezados[2]:
-                st.subheader("")
+                st.subheader("Eliminar")
+
+            with encabezados[3]:
+                st.subheader("Actualizar")
 
             for tarea in tareas:
-                cols = st.columns([3, 2, 1])
+                cols = st.columns([3, 1.5, 1, 1])
                 with cols[0]:
                     st.write(f"**{tarea['titulo']}**\n{tarea['descripcion']}")
 
@@ -63,17 +66,28 @@ def main():
                             marcado,
                         )
                         tareas = listar_tareas()
-
                         st.rerun()
+                        return
 
                 with cols[2]:
                     eliminar_key = f"eliminar-{tarea['id']}"
-                    if st.button("Eliminar", key=eliminar_key):
+                    if st.button("🗑️", key=eliminar_key):
                         if eliminar_tarea(tarea["id"]):
                             st.session_state.success_message = (
                                 "Tarea eliminada correctamente"
                             )
                             st.rerun()
+                            return
+
+                with cols[3]:
+                    actualizar_key = f"actualizar-{tarea['id']}"
+                    if st.button("✏️", key=actualizar_key):
+                        ver_actualiar(
+                            tarea["id"],
+                            tarea["titulo"],
+                            tarea["descripcion"],
+                            tarea["estado"],
+                        )
 
         else:
             st.info("No hay tareas disponibles.")
@@ -95,6 +109,7 @@ def main():
                     agregar_tarea(title, description, False)
                     st.session_state.success_message = "Tarea agregada exitosamente."
                     st.rerun()
+                    return
 
                 else:
                     st.error("Por favor, completa todos los campos.")
@@ -132,8 +147,15 @@ def main():
                 if st.button("Importar"):
                     st.rerun()
 
+                    return
+
             except Exception as e:
                 st.error(f"Error al importar tareas: {e}")
+
+
+@st.dialog("Actualizar tareas")
+def ver_actualiar(id: int, title: str, descrip: str, estado: bool):
+    form_actualizar(id, title, descrip, estado)
 
 
 if __name__ == "__main__":

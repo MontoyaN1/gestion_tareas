@@ -1,5 +1,7 @@
 import json
-from database import listar_tareas, Tarea, session
+import streamlit as st
+from database import listar_tareas, Tarea, session, actualizar_tarea
+import time
 
 
 def create_json():
@@ -25,11 +27,9 @@ def subir_json(contenido_json):
             tarea_objeto = Tarea(
                 id=tarea["id"],
                 titulo=tarea["titulo"],
-                descripcion=tarea.get("descripcion", ""),  # Descripción opcional
+                descripcion=tarea.get("descripcion", ""),
                 estado=bool(tarea["estado"]),
             )
-
-            # Usar session.merge para manejar duplicados o IDs existentes
             session.merge(tarea_objeto)
 
         session.commit()
@@ -41,3 +41,17 @@ def subir_json(contenido_json):
     except Exception as e:
         session.rollback()
         raise e
+
+
+def form_actualizar(id: int, title: str, descrip: str, estado: bool):
+    with st.form("Actualizar "):
+        titulo = st.text_input("Título", value=title)
+        descripcion = st.text_input("Descripción", value=descrip)
+        subir_boton = st.form_submit_button("Actualizar")
+
+        if subir_boton:
+            actualizar_tarea(id, titulo, descripcion, estado)
+            st.success("Tarea actualizada correctamente")
+            time.sleep(1.2)
+            st.rerun()
+            return
