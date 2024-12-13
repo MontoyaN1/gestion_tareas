@@ -52,7 +52,7 @@ def listar_tareas():
         ]
 
     except Exception as e:
-        raise e
+        print(e.args)
     finally:
         session.close()
 
